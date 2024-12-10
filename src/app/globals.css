@@ -7,15 +7,74 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0rem;
+  margin: 0;
+  min-height: 100vh;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.navbar-container {
+  background-color: #2d2d2d;
+  padding: 0.5rem 1rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-right: 0;
+  padding: 0;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #3a3a3a;
+}
+
+.footer-container {
+  background-color: #2d2d2d;
+  padding: 0.5rem;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-brand {
+  padding-left: 2.5rem;
+  color: #ffffff;
+}
+
+.brand-name {
+  font-size: 1rem;
 }
