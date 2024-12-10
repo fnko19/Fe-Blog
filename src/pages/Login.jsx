@@ -1,7 +1,6 @@
 "use client";
 import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
-import api from "../utils/axios";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./LoginPage.module.css";
@@ -37,7 +36,10 @@ const LoginPage = () => {
       if (response.ok) {
         dispatch({
           type: "LOGIN",
-          payload: { token: data.token }, // Pastikan payload yang benar dikirim
+          payload: {
+            user: data.user, // Sesuaikan dengan struktur respons API
+            token: data.token
+          },
         });
 
         await Swal.fire({
@@ -53,32 +55,10 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed");
+      setErrorMessage("Login failed");
     } finally {
       setLoading(false);
     }
-    // try {
-    //   const response = await api.post(
-    //     "/login",
-    //     {
-    //       email,
-    //       password,
-    //     },
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   console.log("Token berhasil diterima", response.data);
-    //   localStorage.setItem("token", response.data.token);
-
-    //   router.push("/");
-    // } catch (error) {
-    //   console.error(
-    //     "Login gagal:",
-    //     error.response?.data?.message || error.message
-    //   );
-    //   setErrorMessage("Login gagal. Periksa email/password Anda.");
-    // }
   };
 
   return (
@@ -100,13 +80,7 @@ const LoginPage = () => {
             Masuk untuk mengomentari Blog/Arena Gelud ini.
           </p>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleLogin();
-            }}
-            className={styles.form}
-          >
+          <form onSubmit={handleLogin} className={styles.form}>
             <div className={styles.form}>
               <label className={styles.label}>Email</label>
               <input

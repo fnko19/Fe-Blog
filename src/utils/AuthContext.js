@@ -14,23 +14,16 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
   const [data, setData] = useState({});
 
-  // Memantau perubahan state.currentUser dan state.userToken
   useEffect(() => {
-    // console.log('State changed:', state);
-
     if (state.currentUser) {
-      //   console.log('Saving currentUser to localStorage:', state.currentUser);
       localStorage.setItem("user", JSON.stringify(state.currentUser));
     } else {
-      console.log("Removing currentUser from localStorage");
       localStorage.removeItem("user");
     }
 
     if (state.userToken) {
-      //   console.log('Saving userToken to localStorage:', state.userToken);
       localStorage.setItem("user_token", state.userToken);
     } else {
-      //   console.log('Removing userToken from localStorage');
       localStorage.removeItem("user_token");
     }
   }, [state.currentUser, state.userToken]);
@@ -51,7 +44,6 @@ export const AuthContextProvider = ({ children }) => {
           );
           const userData = await response.json();
           if (response.ok) {
-            // console.log('Fetched user data:', userData);
             dispatch({
               type: "SET_USER",
               payload: userData,
@@ -67,10 +59,9 @@ export const AuthContextProvider = ({ children }) => {
     };
 
     fetchUser();
-  }, [state.userToken, dispatch]); // Ketika token berubah, fetch ulang data user
+  }, [state.userToken, dispatch]);
 
   return (
-    // current user = token, userData = profil
     <AuthContext.Provider
       value={{ currentUser: state.currentUser, dispatch, userData: data }}
     >
